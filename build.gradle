@@ -1,0 +1,33 @@
+apply plugin: 'java-library'
+
+sourceCompatibility = JavaVersion.VERSION_1_9
+targetCompatibility = JavaVersion.VERSION_1_9
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+compileJava {
+    inputs.property('moduleName', 'test.app')
+    doFirst {
+        options.compilerArgs = [
+                '--module-path', classpath.asPath
+        ]
+        classpath = files()
+    }
+}
+
+dependencies {
+//    implementation 'org.hamcrest:hamcrest-core:2.1'
+    implementation 'org.hamcrest:hamcrest-core:2.2-SNAPSHOT'
+
+//    testImplementation ('org.hamcrest:hamcrest-junit:2.0.0.0') {transitive = false}
+    testImplementation 'junit:junit:4.13-beta-3'
+}
+
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
